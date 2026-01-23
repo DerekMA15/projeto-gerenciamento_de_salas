@@ -1,28 +1,52 @@
 import { cn } from "@/lib/utils";
+import { RoomStatusType } from "@/hooks/useRoomStatus";
 
 interface StatusBadgeProps {
-  isOccupied: boolean;
+  status: RoomStatusType;
   className?: string;
 }
 
-export const StatusBadge = ({ isOccupied, className }: StatusBadgeProps) => {
+const statusConfig: Record<RoomStatusType, { label: string; bgClass: string; textClass: string; dotClass: string }> = {
+  available: {
+    label: "Disponível",
+    bgClass: "bg-status-available/10",
+    textClass: "text-status-available",
+    dotClass: "bg-status-available",
+  },
+  occupied: {
+    label: "Ocupada",
+    bgClass: "bg-status-occupied/10",
+    textClass: "text-status-occupied",
+    dotClass: "bg-status-occupied",
+  },
+  unavailable: {
+    label: "Indisponível",
+    bgClass: "bg-status-unavailable/10",
+    textClass: "text-status-unavailable",
+    dotClass: "bg-status-unavailable",
+  },
+};
+
+export const StatusBadge = ({ status, className }: StatusBadgeProps) => {
+  const config = statusConfig[status];
+
   return (
     <span
       className={cn(
         "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide",
-        isOccupied
-          ? "bg-status-occupied/10 text-status-occupied"
-          : "bg-status-available/10 text-status-available",
+        config.bgClass,
+        config.textClass,
         className
       )}
     >
       <span
         className={cn(
-          "w-2 h-2 rounded-full animate-pulse",
-          isOccupied ? "bg-status-occupied" : "bg-status-available"
+          "w-2 h-2 rounded-full",
+          config.dotClass,
+          status !== "unavailable" && "animate-pulse"
         )}
       />
-      {isOccupied ? "Ocupada" : "Disponível"}
+      {config.label}
     </span>
   );
 };

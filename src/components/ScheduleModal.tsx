@@ -1,4 +1,4 @@
-import { Room, days, timeSlots } from "@/data/scheduleData";
+import { Room, ScheduleEntry, days, timeSlots, usageTypeLabels } from "@/data/scheduleData";
 import {
   Dialog,
   DialogContent,
@@ -11,14 +11,17 @@ import { cn } from "@/lib/utils";
 
 interface ScheduleModalProps {
   room: Room | null;
+  entries: ScheduleEntry[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const ScheduleModal = ({ room, isOpen, onClose }: ScheduleModalProps) => {
+export const ScheduleModal = ({ room, entries, isOpen, onClose }: ScheduleModalProps) => {
   const currentTime = useCurrentTime();
-  
+
   if (!room) return null;
+
+  const roomEntries = entries.filter((e) => e.roomId === room.id);
 
   const getDayName = (date: Date): string => {
     const dayNames = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
@@ -38,7 +41,7 @@ export const ScheduleModal = ({ room, isOpen, onClose }: ScheduleModalProps) => 
   const currentMinutes = getCurrentTimeInMinutes();
 
   const getClassForSlot = (day: string, slot: { start: string; end: string }) => {
-    return room.schedule.find(
+    return roomEntries.find(
       (entry) =>
         entry.day === day &&
         entry.startTime === slot.start &&
@@ -58,9 +61,14 @@ export const ScheduleModal = ({ room, isOpen, onClose }: ScheduleModalProps) => 
       <DialogContent className="max-w-4xl max-h-[85vh] p-0 overflow-hidden">
         <DialogHeader className="p-6 pb-4 border-b bg-muted/30">
           <DialogTitle className="text-xl font-bold">{room.name}</DialogTitle>
-          <p className="text-sm text-muted-foreground">{room.building} • {room.capacity} lugares</p>
+          <p className="text-sm text-muted-foreground">
+            {room.building} • {room.capacity} lugares
+            {!room.isAvailable && (
+              <span className="ml-2 text-status-unavailable">(Indisponível)</span>
+            )}
+          </p>
         </DialogHeader>
-        
+
         <ScrollArea className="max-h-[calc(85vh-100px)]">
           <div className="p-4 overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse">
@@ -95,7 +103,7 @@ export const ScheduleModal = ({ room, isOpen, onClose }: ScheduleModalProps) => 
                     {days.map((day) => {
                       const classEntry = getClassForSlot(day, slot);
                       const isCurrent = isCurrentSlot(day, slot);
-                      
+
                       return (
                         <td
                           key={`${day}-${slot.start}`}
@@ -117,7 +125,7 @@ export const ScheduleModal = ({ room, isOpen, onClose }: ScheduleModalProps) => 
                                 {classEntry.courseCode}
                               </div>
                               <div className="text-[10px] opacity-80 line-clamp-1 mt-0.5">
-                                {classEntry.courseName}
+                                {classEntry.courseName || usageTypeLabels[classEntry.usageType]}
                               </div>
                             </div>
                           ) : (
