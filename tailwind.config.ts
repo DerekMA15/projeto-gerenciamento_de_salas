@@ -68,6 +68,7 @@ export default {
         status: {
           available: "hsl(var(--status-available))",
           occupied: "hsl(var(--status-occupied))",
+          unavailable: "hsl(var(--status-unavailable))",
         },
       },
       borderRadius: {

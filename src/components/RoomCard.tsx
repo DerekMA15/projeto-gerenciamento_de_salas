@@ -1,8 +1,8 @@
-import { Room } from "@/data/scheduleData";
+import { Room, usageTypeLabels } from "@/data/scheduleData";
 import { RoomStatus, formatTimeRemaining } from "@/hooks/useRoomStatus";
 import { StatusBadge } from "./StatusBadge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Clock, BookOpen, Users, ChevronRight } from "lucide-react";
+import { Clock, BookOpen, Users, ChevronRight, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RoomCardProps {
@@ -12,14 +12,26 @@ interface RoomCardProps {
 }
 
 export const RoomCard = ({ room, status, onClick }: RoomCardProps) => {
-  const { isOccupied, currentClass, nextClass, timeUntilNextClass, timeUntilFree } = status;
+  const { status: roomStatus, currentEntry, nextEntry, timeUntilNextEntry, timeUntilFree, occupiedSeats } = status;
+
+  const getBorderColor = () => {
+    switch (roomStatus) {
+      case "available":
+        return "border-l-status-available";
+      case "occupied":
+        return "border-l-status-occupied";
+      case "unavailable":
+        return "border-l-status-unavailable";
+    }
+  };
 
   return (
     <Card
       className={cn(
         "cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group",
         "border-l-4",
-        isOccupied ? "border-l-status-occupied" : "border-l-status-available"
+        getBorderColor(),
+        roomStatus === "unavailable" && "opacity-75"
       )}
       onClick={onClick}
     >
@@ -29,18 +41,28 @@ export const RoomCard = ({ room, status, onClick }: RoomCardProps) => {
             <h3 className="font-bold text-lg text-foreground">{room.name}</h3>
             <p className="text-sm text-muted-foreground">{room.building}</p>
           </div>
-          <StatusBadge isOccupied={isOccupied} />
+          <StatusBadge status={roomStatus} />
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {isOccupied && currentClass ? (
+        {roomStatus === "unavailable" ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-status-unavailable">
+              <AlertCircle className="w-4 h-4" />
+              <span className="text-sm font-medium">Sala indisponível</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Fora do horário de funcionamento ou bloqueada
+            </p>
+          </div>
+        ) : roomStatus === "occupied" && currentEntry ? (
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-status-occupied">
               <BookOpen className="w-4 h-4" />
-              <span className="font-mono font-semibold">{currentClass.courseCode}</span>
+              <span className="font-mono font-semibold">{currentEntry.courseCode}</span>
             </div>
             <p className="text-sm text-muted-foreground line-clamp-1">
-              {currentClass.courseName}
+              {currentEntry.courseName || usageTypeLabels[currentEntry.usageType]}
             </p>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Clock className="w-4 h-4" />
@@ -52,11 +74,11 @@ export const RoomCard = ({ room, status, onClick }: RoomCardProps) => {
             <div className="flex items-center gap-2 text-status-available">
               <span className="text-sm font-medium">Livre agora!</span>
             </div>
-            {nextClass && timeUntilNextClass !== null ? (
+            {nextEntry && timeUntilNextEntry !== null ? (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Clock className="w-4 h-4" />
                 <span>
-                  Próxima aula em {formatTimeRemaining(timeUntilNextClass)}
+                  Próxima aula em {formatTimeRemaining(timeUntilNextEntry)}
                 </span>
               </div>
             ) : (
@@ -68,12 +90,18 @@ export const RoomCard = ({ room, status, onClick }: RoomCardProps) => {
           </div>
         )}
 
-        {room.capacity && (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2 border-t">
-            <Users className="w-4 h-4" />
+        {/* Capacity indicator */}
+        <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2 border-t">
+          <Users className="w-4 h-4" />
+          {roomStatus === "occupied" && occupiedSeats > 0 ? (
+            <span>
+              <span className="font-medium text-foreground">{occupiedSeats}</span>
+              <span className="text-muted-foreground">/{room.capacity} lugares</span>
+            </span>
+          ) : (
             <span>{room.capacity} lugares</span>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="flex items-center justify-end text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
           <span>Ver grade</span>
