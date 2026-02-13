@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
+# Sistema de Gerenciamento de Salas de Estudo - UFS
 
-## Project info
+Este projeto consiste em um **Produto Mínimo Viável (MVP)** desenvolvido para otimizar a gestão de espaços acadêmicos na Universidade Federal de Sergipe (UFS), campus São Cristóvão. A solução visa mitigar a ineficiência operacional e a "perda de tempo" crônica enfrentada por estudantes na busca por ambientes de estudo.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Demonstração
+* **Aplicação Web:** [projeto-mtpc.lovable.app](https://projeto-mtpc.lovable.app/)
+* **Repositório:** [GitHub - projeto-coworkingdid](https://github.com/DerekMA15/projeto-coworkingdid)
 
-## How can I edit this code?
+## Usabilidade e Personas
+O sistema foi projetado com base em requisitos de **Interação Humano-Computador (IHC)** para atender a perfis distintos de usuários identificados na pesquisa:
 
-There are several ways of editing your application.
+1.  **Marcos (O Estudante Colaborativo):** Estudante de Engenharia da Computação que busca espaços com quadros brancos para estudos em grupo e discussões em voz alta. Sua dor principal é a perda de tempo (mais de 20 minutos) circulando pelas didáticas.
+2.  **Ana (A Caloura Focada):** Estudante de Letras que necessita de ambientes silenciosos para estudo individual entre as aulas. Busca uma interface simples e direta para validar a ocupação de salas.
 
-**Use Lovable**
+### Principais Funcionalidades
+* **Monitoramento em Tempo Real:** Visualização do status de ocupação das salas antes do deslocamento físico.
+* **Redução da Carga Cognitiva:** Interface simplificada para evitar a subutilização comum em sistemas oficiais complexos.
+* **Foco no Usuário (User-Centric):** Centralização de informações para promover a eficiência administrativa e o bem-estar discente.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Tecnologias Utilizadas
+* **Frontend:** React + Vite
+* **Linguagem:** TypeScript
+* **Estilização:** Tailwind CSS + Shadcn/UI
+* **Ambiente de Desenvolvimento:** Lovable (Full-stack GPT-engineer)
 
-Changes made via Lovable will be committed automatically to this repo.
+## Instalação e Execução
 
-**Use your preferred IDE**
+Para rodar o projeto localmente, siga os passos abaixo:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. **Clonar o repositório:**
+   ```bash
+   git clone [https://github.com/DerekMA15/projeto-coworkingdid.git](https://github.com/DerekMA15/projeto-coworkingdid.git)
+   cd projeto-coworkingdid
+   ```
+2. **Instalar dependências:**
+ ```bash
+npm install
+  ```
+3. **Executar ambiente de desenvolvimento**
+```bash
+   npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Metodologia Científica
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O projeto fundamenta-se em:
 
-**Use GitHub Codespaces**
+*   **Revisão Sistemática da Literatura (RSL):** Conduzida na ferramenta Parsifal, analisando 20 artigos sobre Smart Campuses e usabilidade.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+*   **Amostragem por Conveniência:** Validação inicial planejada com 10 a 20 estudantes nas áreas comuns das Didáticas da UFS.
 
-## What technologies are used for this project?
+*   **Rigor IHC:** Quantitativo de amostra baseado na literatura de Interação Humano-Computador para identificação de falhas críticas de fluxo.
 
-This project is built with:
+---
+**Orientador:** José Osmário Batista de Góis Júnior 
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+**Instituição:** Universidade Federal de Sergipe (UFS) 
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Autores:** Derek Marques Almeida, Douglas Azevedo Menezes e Pedro André Melo Andrade de Jesus, .
