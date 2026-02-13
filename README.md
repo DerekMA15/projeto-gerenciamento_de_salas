@@ -56,4 +56,4 @@ O projeto fundamenta-se em:
 
 **Instituição:** Universidade Federal de Sergipe (UFS) 
 
-**Autores:** Derek Marques Almeida, Douglas Azevedo Menezes e Pedro André Melo Andrade de Jesus, .
+**Autores:** Derek Marques Almeida, Douglas Azevedo Menezes e Pedro André Melo Andrade de Jesus.
