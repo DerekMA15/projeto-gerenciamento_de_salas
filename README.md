@@ -3,7 +3,7 @@
 Este projeto consiste em um **Produto Mínimo Viável (MVP)** desenvolvido para otimizar a gestão de espaços acadêmicos na Universidade Federal de Sergipe (UFS), campus São Cristóvão. A solução visa mitigar a ineficiência operacional e a "perda de tempo" crônica enfrentada por estudantes na busca por ambientes de estudo.
 
 ## Demonstração
-* **Aplicação Web:** [projeto-mtpc.lovable.app](https://projeto-mtpc.lovable.app/)
+* **Aplicação Web:** [projeto-mtpc.lovable.app](https://projeto-coworkingdid.lovable.app/)
 * **Repositório:** [GitHub - projeto-coworkingdid](https://github.com/DerekMA15/projeto-coworkingdid)
 
 ## Usabilidade e Personas
